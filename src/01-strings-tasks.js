@@ -204,7 +204,7 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
   return `┌${'─'.repeat(width - 2)}┐\n${`│${' '.repeat(width - 2)}│\n`.repeat(height - 2)
-    }└${'─'.repeat(width - 2)}┘\n`;
+  }└${'─'.repeat(width - 2)}┘\n`;
 }
 
 
@@ -280,7 +280,7 @@ function getCardId(value) {
     'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
     'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
     'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-    return cards.indexOf(value);
+  return cards.indexOf(value);
 }
 
 
