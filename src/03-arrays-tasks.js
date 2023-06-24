@@ -615,8 +615,6 @@ function swapHeadAndTail(arr) {
   return [...tail, ...center, ...head];
 }
 
-console.log(swapHeadAndTail([1,2,3,4]));
-
 module.exports = {
   findElement,
   generateOdds,
