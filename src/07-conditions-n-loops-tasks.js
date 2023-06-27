@@ -179,10 +179,18 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const allLetters = [...new Set(str.replace(' ', '').split(''))];
+  let result = null;
+  for (let i = 0; i < allLetters.length; i += 1) {
+    const len = str.split('').filter((item) => item === allLetters[i]).length;
+    if (len === 1) {
+      result = allLetters[i];
+      break;
+    }
+  }
+  return result;
 }
-
 
 /**
  * Returns the string representation of math interval,
@@ -206,8 +214,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const lessValue = a < b ? a : b;
+  const biggerValue = a > b ? a : b;
+  const starPoint = isStartIncluded ? '[' : '(';
+  const endPoint = isEndIncluded ? ']' : ')';
+  return `${starPoint}${lessValue}, ${biggerValue}${endPoint}`;
 }
 
 
@@ -223,8 +235,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -240,8 +252,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return (num.toString().split('').reverse().join('')) * 1;
 }
 
 
@@ -265,9 +277,21 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const ccnArr = ccn.toString().split('').reverse().join('');
+
+  let sum = 0;
+  for (let i = 0; i < ccnArr.length; i += 1) {
+    let value = +ccnArr[i];
+    if (i % 2 === 1) {
+      value *= 2;
+      if (value > 9) value -= 9;
+    }
+    sum += value;
+  }
+  return sum % 10 === 0;
 }
+
 
 /**
  * Returns the digital root of integer:
