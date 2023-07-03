@@ -375,8 +375,19 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  if (num === 0) {
+    return '0';
+  }
+  let number = num;
+  let result = '';
+  while (number > 0) {
+    const remainder = number % n;
+    result = remainder + result;
+    number = Math.floor(number / n);
+  }
+
+  return result;
 }
 
 
@@ -392,8 +403,32 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  if (pathes.length === 0) {
+    return '';
+  }
+
+  // Split the first path into an array of directories
+  const firstPathDirs = pathes[0].split('/');
+
+  let commonDir = '';
+  for (let i = 0; i < firstPathDirs.length; i += 1) {
+    const dir = firstPathDirs[i];
+
+    // Check if the directory is present in all paths
+    const isCommon = pathes.every((path) => {
+      const pathDirs = path.split('/');
+      return i < pathDirs.length && pathDirs[i] === dir;
+    });
+
+    if (isCommon) {
+      commonDir += `${dir}/`;
+    } else {
+      break;
+    }
+  }
+
+  return commonDir;
 }
 
 
@@ -415,8 +450,25 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const m1Rows = m1.length;
+  const m1Cols = m1[0].length;
+  const m2Cols = m2[0].length;
+
+  const result = [];
+
+  for (let i = 0; i < m1Rows; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < m2Cols; j += 1) {
+      let sum = 0;
+      for (let k = 0; k < m1Cols; k += 1) {
+        sum += m1[i][k] * m2[k][j];
+      }
+      result[i][j] = sum;
+    }
+  }
+
+  return result;
 }
 
 
@@ -450,8 +502,32 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const winningPatterns = [
+    // Rows
+    [position[0][0], position[0][1], position[0][2]],
+    [position[1][0], position[1][1], position[1][2]],
+    [position[2][0], position[2][1], position[2][2]],
+    // Columns
+    [position[0][0], position[1][0], position[2][0]],
+    [position[0][1], position[1][1], position[2][1]],
+    [position[0][2], position[1][2], position[2][2]],
+    // Diagonals
+    [position[0][0], position[1][1], position[2][2]],
+    [position[0][2], position[1][1], position[2][0]],
+  ];
+
+  for (let i = 0; i < winningPatterns.length; i += 1) {
+    const pattern = winningPatterns[i];
+    if (pattern.every((cell) => cell === 'X')) {
+      return 'X';
+    }
+    if (pattern.every((cell) => cell === '0')) {
+      return '0';
+    }
+  }
+
+  return undefined;
 }
 
 
